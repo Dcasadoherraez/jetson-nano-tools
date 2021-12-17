@@ -18,7 +18,7 @@ WINDOW_NAME = 'UDP'
 
 def open_cam_pc(connection, device):
     # create UDP server pipeline to send H264 videos
-    os.system(("gst-launch-1.0 v4l2src do-timestamp=TRUE device=/dev/video{} ! \
+    os.system(("gst-launch-1.0 v4l2src do-timestamp=TRUE device={} ! \
                 videoconvert ! x264enc tune=zerolatency ! rtph264pay ! \
                 udpsink host={} port={}").format(device, *connection))    
 
@@ -102,7 +102,7 @@ def udp_stop(*args):
     sys.exit(0)
 
 if __name__ == "__main__": 
-    cam_dev = 0 # /dev/video0
+    cam_dev = '/dev/video0'
     client_thread = ClientThread()
     server_thread = ServerThread(cam_dev)
 
